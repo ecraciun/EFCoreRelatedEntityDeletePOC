@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCorePossibleBugPOC", "EFCorePossibleBugPOC\EFCorePossibleBugPOC.csproj", "{D51DFB30-F856-4EE6-A407-0149B0E29478}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCorePossibleBugPOC3.1", "EFCorePossibleBugPOC3.1\EFCorePossibleBugPOC3.1.csproj", "{CBB9470A-D9D6-42CF-9B74-05DA9BC36D9B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".doc", ".doc", "{5363D0D2-E039-480C-BEB4-FA184ABB6BBA}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D51DFB30-F856-4EE6-A407-0149B0E29478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D51DFB30-F856-4EE6-A407-0149B0E29478}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D51DFB30-F856-4EE6-A407-0149B0E29478}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D51DFB30-F856-4EE6-A407-0149B0E29478}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBB9470A-D9D6-42CF-9B74-05DA9BC36D9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBB9470A-D9D6-42CF-9B74-05DA9BC36D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBB9470A-D9D6-42CF-9B74-05DA9BC36D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBB9470A-D9D6-42CF-9B74-05DA9BC36D9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F15EA60D-8428-4AC1-A546-0E22ED21896F}
+	EndGlobalSection
+EndGlobal
