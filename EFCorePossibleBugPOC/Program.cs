@@ -25,39 +25,6 @@ namespace EFCorePossibleBugPOC
             Console.WriteLine($"OK scenarios: {_succeededScenarios}");
         }
 
-        static void RunScenarion(Action scenarioAction)
-        {
-            using (_ctx = new DemoDbContext())
-            {
-                var hadError = false;
-                try
-                {
-                    scenarioAction();
-                }
-                catch (Exception ex) when (ex.InnerException != null && ex.InnerException.Message.Contains("The DELETE statement conflicted with the REFERENCE constraint"))
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.BackgroundColor = ConsoleColor.White;
-                    Console.WriteLine($"\n### {scenarioAction.Method.Name} failed ###\n");
-                    _failedScenarios += $" {scenarioAction.Method.Name}";
-                    hadError = true;
-                }
-                finally
-                {
-                    if (!hadError)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.WriteLine($"\n### {scenarioAction.Method.Name} succeeded ###\n");
-                        _succeededScenarios += $" {scenarioAction.Method.Name}";
-                    }
-                }
-
-                Console.ResetColor();
-                Console.WriteLine();
-            }
-        }
-
         static void InitializeDbData()
         {
             using (_ctx = new DemoDbContext())
@@ -139,6 +106,41 @@ namespace EFCorePossibleBugPOC
             _ctx.SaveChanges();
         }
 
+        static void RunScenarion(Action scenarioAction)
+        {
+            using (_ctx = new DemoDbContext())
+            {
+                var hadError = false;
+                try
+                {
+                    scenarioAction();
+                }
+                catch (Exception ex) when (ex.InnerException != null && ex.InnerException.Message.Contains("The DELETE statement conflicted with the REFERENCE constraint"))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.WriteLine($"\n### {scenarioAction.Method.Name} failed ###\n");
+                    _failedScenarios += $" {scenarioAction.Method.Name}";
+                    hadError = true;
+                }
+                finally
+                {
+                    if (!hadError)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.WriteLine($"\n### {scenarioAction.Method.Name} succeeded ###\n");
+                        _succeededScenarios += $" {scenarioAction.Method.Name}";
+                    }
+                }
+
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+        }
+
+        // Main table name: Firsts
+        // Scenario: succeeds 
         static void Scenario1()
         {
             BuildScenario(
@@ -147,6 +149,8 @@ namespace EFCorePossibleBugPOC
             );
         }
 
+        // Main table name: ZLasts
+        // Scenario: fails 
         static void Scenario2()
         {
             BuildScenario(
@@ -155,6 +159,8 @@ namespace EFCorePossibleBugPOC
             );
         }
 
+        // Main table name: ZFirst2s
+        // Scenario: fails 
         static void Scenario3()
         {
             BuildScenario(
@@ -163,6 +169,8 @@ namespace EFCorePossibleBugPOC
             );
         }
 
+        // Main table name: AZLast2s
+        // Scenario: succeeds 
         static void Scenario4()
         {
             BuildScenario(
@@ -171,6 +179,8 @@ namespace EFCorePossibleBugPOC
             );
         }
 
+        // Main table name: ZFirst3s
+        // Scenario: fails 
         static void Scenario5()
         {
             BuildScenario(
@@ -179,6 +189,8 @@ namespace EFCorePossibleBugPOC
             );
         }
 
+        // Main table name: AZLast3s
+        // Scenario: succeeds 
         static void Scenario6()
         {
             BuildScenario(
