@@ -1,6 +1,6 @@
-﻿namespace EFCorePossibleBugPOC3._1
+﻿namespace EF6PossibleBug
 {
-    public class ZLast : IEntityWithChild
+    public class First : IEntityWithChild
     {
         public int Id { get; set; }
         public int? MiddleId { get; set; }
@@ -8,7 +8,7 @@
         public string Bar { get; set; }
     }
 
-    public class ZLast2 : IEntityWithChild
+    public class First2 : IEntityWithChild
     {
         public int Id { get; set; }
         public int? MiddleId { get; set; }
@@ -16,7 +16,7 @@
         public string Bar { get; set; }
     }
 
-    public class ZLast3 : IEntityWithChild
+    public class First3 : IEntityWithChild
     {
         public int Id { get; set; }
         public int? MiddleId { get; set; }

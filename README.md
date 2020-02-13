@@ -29,3 +29,8 @@ I would expect that once I detected that a delete of B happened on either A or C
 In reality for the A case it works, for the C case it doesn't. 
 Apparently, form what I was able to make out, the statements are generated in the alphabetical order of the affected tables of the tracked entities. 
 Until now I was certain that EF checks the dependencies of the tracked entities in order to apply the changes in the expected sequence, so I find this a bit baffling.
+
+
+### EF6 example
+
+I also added an example using EntityFramework 6 and every scenario works as expected.

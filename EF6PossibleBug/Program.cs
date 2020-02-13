@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
+using System.Xml;
 
-namespace EFCorePossibleBugPOC3._1
+namespace EF6PossibleBug
 {
     class Program
     {
@@ -23,6 +24,8 @@ namespace EFCorePossibleBugPOC3._1
 
             Console.WriteLine($"Failed scenarios: {_failedScenarios}");
             Console.WriteLine($"OK scenarios: {_succeededScenarios}");
+
+            Console.ReadKey();
         }
 
         static void InitializeDbData()
@@ -143,27 +146,27 @@ namespace EFCorePossibleBugPOC3._1
         // Scenario: succeeds 
         static void Scenario1()
         {
-            BuildScenario(
+            BuildScenario<First>(
                 () => _ctx.Firsts.AsNoTracking().FirstOrDefault(),
                 (id) => _ctx.Firsts.Where(x => x.Id == id).Select(x => x.Middle).FirstOrDefault()
             );
         }
 
         // Main table name: ZLasts
-        // Scenario: fails 
+        // Scenario: succeeds 
         static void Scenario2()
         {
-            BuildScenario(
+            BuildScenario<ZLast>(
                 () => _ctx.ZLasts.AsNoTracking().FirstOrDefault(),
                 (id) => _ctx.ZLasts.Where(x => x.Id == id).Select(x => x.Middle).FirstOrDefault()
             );
         }
 
         // Main table name: ZFirst2s
-        // Scenario: fails 
+        // Scenario: succeeds 
         static void Scenario3()
         {
-            BuildScenario(
+            BuildScenario<First2>(
                 () => _ctx.ZFirst2s.AsNoTracking().FirstOrDefault(),
                 (id) => _ctx.ZFirst2s.Where(x => x.Id == id).Select(x => x.Middle).FirstOrDefault()
             );
@@ -173,17 +176,17 @@ namespace EFCorePossibleBugPOC3._1
         // Scenario: succeeds 
         static void Scenario4()
         {
-            BuildScenario(
+            BuildScenario<ZLast2>(
                 () => _ctx.AZLast2s.AsNoTracking().FirstOrDefault(),
                 (id) => _ctx.AZLast2s.Where(x => x.Id == id).Select(x => x.Middle).FirstOrDefault()
             );
         }
 
         // Main table name: ZFirst3s
-        // Scenario: fails 
+        // Scenario: succeeds 
         static void Scenario5()
         {
-            BuildScenario(
+            BuildScenario<First3>(
                 () => _ctx.First3s.AsNoTracking().FirstOrDefault(),
                 (id) => _ctx.First3s.Where(x => x.Id == id).Select(x => x.Middle).FirstOrDefault()
             );
@@ -193,13 +196,14 @@ namespace EFCorePossibleBugPOC3._1
         // Scenario: succeeds 
         static void Scenario6()
         {
-            BuildScenario(
+            BuildScenario<ZLast3>(
                 () => _ctx.ZLast3s.AsNoTracking().FirstOrDefault(),
                 (id) => _ctx.ZLast3s.Where(x => x.Id == id).Select(x => x.Middle).FirstOrDefault()
             );
         }
 
-        static void BuildScenario(Func<IEntityWithChild> getNonTrackedEntity, Func<int, Middle> getAssociatedChild)
+        static void BuildScenario<TEntity>(Func<TEntity> getNonTrackedEntity, Func<int, Middle> getAssociatedChild) 
+            where TEntity : class, IEntityWithChild, new()
         {
             // Simulate update from a web call
             var entity = getNonTrackedEntity();
@@ -210,10 +214,10 @@ namespace EFCorePossibleBugPOC3._1
             // Since child got removed, I need to get the old one to remove it
             var toRemove = getAssociatedChild(entity.Id);
 
-            _ctx.Attach(entity);
+            _ctx.Set<TEntity>().Attach(entity);
             _ctx.Entry(entity).State = EntityState.Modified;
 
-            _ctx.Remove(toRemove);
+            _ctx.Set<Middle>().Remove(toRemove);
 
             _ctx.SaveChanges();
         }

@@ -1,4 +1,4 @@
-﻿namespace EFCorePossibleBugPOC3._1
+﻿namespace EF6PossibleBug
 {
     public class Middle : IEntity
     {

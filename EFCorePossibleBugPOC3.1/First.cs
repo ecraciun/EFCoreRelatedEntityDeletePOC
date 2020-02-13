@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EFCorePossibleBugPOC
+﻿namespace EFCorePossibleBugPOC3._1
 {
     public class First : IEntityWithChild
     {

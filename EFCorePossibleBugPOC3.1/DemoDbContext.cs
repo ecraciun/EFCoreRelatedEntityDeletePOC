@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace EFCorePossibleBugPOC
+namespace EFCorePossibleBugPOC3._1
 {
     public class DemoDbContext : DbContext
     {
